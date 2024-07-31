@@ -1,0 +1,10 @@
+実行するためには？
+uvicorn main:app --reload
+urlは？
+http://127.0.0.1:8000
+http://127.0.0.1:8000/docs
+
+https://fastapi.tiangolo.com/ja/tutorial/
+07/30 クエリパラメーターまで終了
+07/31 リクエストボディの途中まで終了
+8/01照すt
