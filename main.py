@@ -11,5 +11,3 @@ async def read_items(q: Union[str, None] = Query(default=None, alias="item-query
     if q:
         results.update({"q": q})
     return results
-
-#なぜか草が生えない？？
