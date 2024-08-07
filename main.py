@@ -5,7 +5,6 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-
 class Item(BaseModel):
     name: str
     description: Union[str, None] = None
@@ -18,3 +17,5 @@ class Item(BaseModel):
 async def update_item(item_id: int, item: Item):
     results = {"item_id": item_id, "item": item}
     return results
+
+#なぜか草がはえない
