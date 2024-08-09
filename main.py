@@ -1,32 +1,28 @@
+from datetime import datetime, time, timedelta
 from typing import Union
+from uuid import UUID
 
-from fastapi import FastAPI
-from pydantic import BaseModel
+from fastapi import Body, FastAPI
 
 app = FastAPI()
 
 
-class Item(BaseModel):
-    name: str
-    description: Union[str, None] = None
-    price: float
-    tax: Union[float, None] = None
-
-    model_config = {
-        "json_schema_extra": {
-            "examples": [
-                {
-                    "name": "Foo",
-                    "description": "A very nice Item",
-                    "price": 35.4,
-                    "tax": 3.2,
-                }
-            ]
-        }
-    }
-
-
 @app.put("/items/{item_id}")
-async def update_item(item_id: int, item: Item):
-    results = {"item_id": item_id, "item": item}
-    return results
+async def read_items(
+    item_id: UUID,
+    start_datetime: datetime = Body(),
+    end_datetime: datetime = Body(),
+    process_after: timedelta = Body(),
+    repeat_at: Union[time, None] = Body(default=None),
+):
+    start_process = start_datetime + process_after
+    duration = end_datetime - start_process
+    return {
+        "item_id": item_id,
+        "start_datetime": start_datetime,
+        "end_datetime": end_datetime,
+        "process_after": process_after,
+        "repeat_at": repeat_at,
+        "start_process": start_process,
+        "duration": duration,
+    }
